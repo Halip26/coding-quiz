@@ -1,0 +1,246 @@
+{
+  "webDev": [
+    {
+      "question": "What does HTML stand for?",
+      "a": "Hypertext Markup Language",
+      "b": "Hypertext Markdown Language",
+      "c": "Hyperloop Machine Language",
+      "d": "Hypertext and links markup language",
+      "correct": "a"
+    },
+    {
+      "question": "Which HTML element is used to define the title of a document?",
+      "a": "<head>",
+      "b": "<title>",
+      "c": "<meta>",
+      "d": "<header>",
+      "correct": "b"
+    },
+    {
+      "question": "What does CSS stand for?",
+      "a": "Central Style Sheets",
+      "b": "Cascading Style Sheets",
+      "c": "Cascading Sheets Style",
+      "d": "Central Simple Style Sheets",
+      "correct": "b"
+    },
+    {
+      "question": "Which HTML attribute is used to add a link to an element?",
+      "a": "link",
+      "b": "href",
+      "c": "ref",
+      "d": "src",
+      "correct": "b"
+    },
+    {
+      "question": "Which HTML element is used for creating an unordered list?",
+      "a": "<ui>",
+      "b": "<ol>",
+      "c": "<em>",
+      "d": "<ul>",
+      "correct": "d"
+    },
+    {
+      "question": "How do you write 'Hello World' in an alert box?",
+      "a": "alertBox('Hello World!');",
+      "b": "alert(Hello World!);",
+      "c": "msgAlert('Hello World!');",
+      "d": "alert('Hello World!');",
+      "correct": "d"
+    },
+    {
+      "question": "How can you open a link in a new browser window?",
+      "a": "target='_blank'",
+      "b": "target='new'",
+      "c": "window='new'",
+      "d": "href='new'",
+      "correct": "a"
+    },
+    {
+      "question": "Inside which HTML element do you put JavaScript code?",
+      "a": "<var>",
+      "b": "<script>",
+      "c": "<section>",
+      "d": "<code>",
+      "correct": "b"
+    },
+    {
+      "question": "Which CSS property is used to change the text color?",
+      "a": "font-color",
+      "b": "text-color",
+      "c": "color",
+      "d": "text-style",
+      "correct": "c"
+    },
+    {
+      "question": "Which JavaScript method is used to select an element by ID?",
+      "a": "getElementById()",
+      "b": "getElement()",
+      "c": "selectElementById()",
+      "d": "queryId()",
+      "correct": "a"
+    },
+    {
+      "question": "What is the correct if statement to check if x equals 5?",
+      "a": "if(x = 5)",
+      "b": "if(x == 5)",
+      "c": "if x = 5",
+      "d": "if x equals 5",
+      "correct": "b"
+    },
+    {
+      "question": "How do you add a comment in JavaScript?",
+      "a": "<!-- This is a comment -->",
+      "b": "// This is a comment",
+      "c": "# This is a comment",
+      "d": "/* This is a comment",
+      "correct": "b"
+    },
+    {
+      "question": "Which operator is used to concatenate strings in JavaScript?",
+      "a": "&",
+      "b": "+",
+      "c": "*",
+      "d": "concat",
+      "correct": "b"
+    },
+    {
+      "question": "What is the correct way to declare a JavaScript variable?",
+      "a": "variable name = value;",
+      "b": "v name = value;",
+      "c": "let name = value;",
+      "d": "declare name = value;",
+      "correct": "c"
+    },
+    {
+      "question": "Which CSS property controls the text size?",
+      "a": "text-size",
+      "b": "font-style",
+      "c": "font-size",
+      "d": "text-style",
+      "correct": "c"
+    }
+  ],
+  "python": [
+    {
+      "question": "What is the correct file extension for Python files?",
+      "a": ".pyt",
+      "b": ".pt",
+      "c": ".py",
+      "d": ".python",
+      "correct": "c"
+    },
+    {
+      "question": "How do you print 'Hello World' in Python?",
+      "a": "echo('Hello World')",
+      "b": "print('Hello World')",
+      "c": "printf('Hello World')",
+      "d": "console.log('Hello World')",
+      "correct": "b"
+    },
+    {
+      "question": "How do you create a variable in Python?",
+      "a": "var x = 5",
+      "b": "let x = 5",
+      "c": "x = 5",
+      "d": "int x = 5",
+      "correct": "c"
+    },
+    {
+      "question": "Which of the following is a correct comment in Python?",
+      "a": "// This is a comment",
+      "b": "<!-- This is a comment -->",
+      "c": "# This is a comment",
+      "d": "/* This is a comment */",
+      "correct": "c"
+    },
+    {
+      "question": "What data type is the value: 'Hello'?",
+      "a": "int",
+      "b": "str",
+      "c": "float",
+      "d": "bool",
+      "correct": "b"
+    },
+    {
+      "question": "Which keyword is used to create a function in Python?",
+      "a": "function",
+      "b": "def",
+      "c": "func",
+      "d": "define",
+      "correct": "b"
+    },
+    {
+      "question": "What is the correct way to create a list in Python?",
+      "a": "list = (1, 2, 3)",
+      "b": "list = {1, 2, 3}",
+      "c": "list = [1, 2, 3]",
+      "d": "list = <1, 2, 3>",
+      "correct": "c"
+    },
+    {
+      "question": "How do you check if a value is equal to 10 in Python?",
+      "a": "if value = 10:",
+      "b": "if value == 10:",
+      "c": "if (value equals 10):",
+      "d": "if value === 10:",
+      "correct": "b"
+    },
+    {
+      "question": "Which symbol is used for indentation in Python?",
+      "a": "Curly braces {}",
+      "b": "Parentheses ()",
+      "c": "Spaces or tabs",
+      "d": "Semicolons ;",
+      "correct": "c"
+    },
+    {
+      "question": "What does the len() function do?",
+      "a": "Returns the length of an object",
+      "b": "Creates a new list",
+      "c": "Converts to lowercase",
+      "d": "Calculates sum",
+      "correct": "a"
+    },
+    {
+      "question": "Which operator is used for exponentiation in Python?",
+      "a": "^",
+      "b": "**",
+      "c": "exp",
+      "d": "pow",
+      "correct": "b"
+    },
+    {
+      "question": "How do you start a for loop in Python?",
+      "a": "for (i = 0; i < 10; i++)",
+      "b": "for i in range(10):",
+      "c": "foreach i in range(10):",
+      "d": "loop i in range(10):",
+      "correct": "b"
+    },
+    {
+      "question": "What is the correct way to import a module named 'math'?",
+      "a": "include math",
+      "b": "using math",
+      "c": "import math",
+      "d": "require math",
+      "correct": "c"
+    },
+    {
+      "question": "Which method is used to add an item to a list?",
+      "a": "add()",
+      "b": "append()",
+      "c": "insert()",
+      "d": "push()",
+      "correct": "b"
+    },
+    {
+      "question": "What will type(5.5) return in Python?",
+      "a": "<class 'int'>",
+      "b": "<class 'float'>",
+      "c": "<class 'double'>",
+      "d": "<class 'number'>",
+      "correct": "b"
+    }
+  ]
+}
