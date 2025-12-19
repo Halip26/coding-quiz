@@ -3,49 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz Time! by Halip</title>
-    <!-- style css -->
+    <meta name="description" content="Interactive coding quiz platform featuring Web Development and Python challenges. Test your programming knowledge with dynamic, randomized questions created by Mr. Halip." />
+    <meta name="keywords" content="coding quiz, web development quiz, python quiz, programming test, interactive quiz, learn coding, javascript quiz, html quiz, css quiz" />
+    <meta name="author" content="Mr. Halip" />
+    <title>Coding Quiz - Interactive Web Development & Python Quiz | Mr. Halip</title>
+    
+    <!-- Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
-    <!-- head icon -->
-    <link
-      rel="shortcut icon"
-      href="assets/images/quiz-game.png"
-      type="image/x-icon"
-    />
-    <!-- meta data / SEO -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@halip26" />
-    <meta name="twitter:creator" content="@halip26" />
-    <meta
-      name="twitter:title"
-      content="A simple quiz website created by Mr. Halip"
-    />
-    <meta
-      name="twitter:description"
-      content="Welcome to Quiz Time!, Test your knowledge and have fun!"
-    />
-    <meta
-      name="twitter:image"
-      content="https://halip26.github.io/quiz-time/assets/images/preview.png"
-    />
-    <meta name="twitter:url" content="https://halip26.github.io/quiz-time" />
-    <meta
-      property="og:title"
-      content="A simple quiz website created by Mr. Halip"
-    />
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/quiz-game.png" type="image/x-icon" />
+    
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta
-      property="og:site_name"
-      content="A simple quiz website created by Mr. Halip"
-    />
-    <meta
-      property="og:description"
-      content="Welcome to Quiz Time!, Test your knowledge and have fun!"
-    />
-    <meta
-      property="og:image"
-      content="https://halip26.github.io/quiz-time/assets/images/preview.png"
-    />
+    <meta property="og:url" content="https://halip26.github.io/quiz-time" />
+    <meta property="og:title" content="Coding Quiz - Interactive Web Development & Python Quiz" />
+    <meta property="og:description" content="Test your coding skills with our interactive quiz platform. Choose between Web Development (HTML, CSS, JavaScript) or Python fundamentals. Personalized experience with randomized questions!" />
+    <meta property="og:image" content="https://halip26.github.io/quiz-time/assets/images/screenshot.png" />
+    <meta property="og:site_name" content="Coding Quiz by Mr. Halip" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://halip26.github.io/quiz-time" />
+    <meta name="twitter:title" content="Coding Quiz - Interactive Web Development & Python Quiz" />
+    <meta name="twitter:description" content="Test your coding skills with our interactive quiz platform. Choose between Web Development or Python fundamentals!" />
+    <meta name="twitter:image" content="https://halip26.github.io/quiz-time/assets/images/screenshot.png" />
+    <meta name="twitter:creator" content="@halip26" />
+    <meta name="twitter:site" content="@halip26" />
   </head>
   <body>
     <div class="quiz-container" id="quiz">
@@ -125,6 +109,10 @@
       <!-- Results Screen -->
       <div class="results-screen hidden" id="resultsScreen">
         <h2 id="resultTitle"></h2>
+        <div class="score-display">
+          <div class="score-fraction" id="scoreFraction"></div>
+          <div class="percentage-badge" id="percentageBadge"></div>
+        </div>
         <p id="resultMessage"></p>
         <button id="playAgainBtn">Play Again</button>
       </div>
