@@ -49,54 +49,85 @@
   </head>
   <body>
     <div class="quiz-container" id="quiz">
-      <div class="title">
-        <h1>
-          A simple quiz website by <br />
+      <!-- Welcome Screen -->
+      <div class="welcome-screen" id="welcomeScreen">
+        <h1 class="welcome-title">
+          Welcome to Coding Quiz<br />by
           <a
-            href="https://halip26.github.io/"
+            href="http://halip26.github.io"
             target="_blank"
             rel="noopener noreferrer"
-            >Mr Halip</a
+            >Mr. Halip</a
           >
         </h1>
+
+        <!-- Name Input -->
+        <div class="form-step" id="nameStep">
+          <label for="studentName">What's your name?</label>
+          <input type="text" id="studentName" placeholder="Enter your name" />
+          <button class="next-btn" id="nameNextBtn">Next</button>
+        </div>
+
+        <!-- Age Input -->
+        <div class="form-step hidden" id="ageStep">
+          <label for="studentAge">How old are you?</label>
+          <input
+            type="number"
+            id="studentAge"
+            placeholder="Enter your age"
+            min="1"
+            max="120"
+          />
+          <button class="next-btn" id="ageNextBtn">Next</button>
+        </div>
+
+        <!-- Quiz Type Selection -->
+        <div class="form-step hidden" id="quizTypeStep">
+          <label>Choose your quiz:</label>
+          <div class="quiz-type-buttons">
+            <button class="quiz-type-btn" data-type="webdev">
+              Basic Web Development
+            </button>
+            <button class="quiz-type-btn" data-type="python">
+              Basic Python
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="quiz-header">
-        <h2 id="question">Question text</h2>
-        <ul>
-          <li>
-            <input type="radio" name="answer" id="a" class="answer" />
-            <label for="a"
-              >A.
-              <label for="a" id="a_text">answer option 1</label>
-            </label>
-          </li>
 
-          <li>
-            <input type="radio" name="answer" id="b" class="answer" />
-            <label for="b"
-              >B.
-              <label for="b" id="b_text">answer option 2</label>
-            </label>
-          </li>
-
-          <li>
-            <input type="radio" name="answer" id="c" class="answer" />
-            <label for="c"
-              >C.
-              <label for="c" id="c_text">answer option 3</label>
-            </label>
-          </li>
-
-          <li>
-            <input type="radio" name="answer" id="d" class="answer" />
-            <label for="d" for=""
-              >D.
-              <label for="d" id="d_text">answer option 4</label>
-            </label>
-          </li>
-        </ul>
+      <!-- Quiz Screen -->
+      <div class="quiz-screen hidden" id="quizScreen">
+        <div class="quiz-header">
+          <div class="student-info" id="studentInfo"></div>
+          <h2 id="question">Question text</h2>
+          <ul>
+            <li>
+              <input type="radio" name="answer" id="a" class="answer" />
+              <label for="a">A. <span id="a_text">answer option 1</span></label>
+            </li>
+            <li>
+              <input type="radio" name="answer" id="b" class="answer" />
+              <label for="b">B. <span id="b_text">answer option 2</span></label>
+            </li>
+            <li>
+              <input type="radio" name="answer" id="c" class="answer" />
+              <label for="c">C. <span id="c_text">answer option 3</span></label>
+            </li>
+            <li>
+              <input type="radio" name="answer" id="d" class="answer" />
+              <label for="d">D. <span id="d_text">answer option 4</span></label>
+            </li>
+          </ul>
+        </div>
+        <button id="submit">Submit Answer</button>
       </div>
-      <button id="submit">Submit</button>
+
+      <!-- Results Screen -->
+      <div class="results-screen hidden" id="resultsScreen">
+        <h2 id="resultTitle"></h2>
+        <p id="resultMessage"></p>
+        <button id="playAgainBtn">Play Again</button>
+      </div>
     </div>
 
     <!-- script js -->
