@@ -28,6 +28,20 @@ let currentQuizData = [];
 let currentQuiz = 0;
 let score = 0;
 let correctAnswerKey = "";
+let shuffledAnswers = [];
+
+// LocalStorage Keys
+const STORAGE_KEYS = {
+  STUDENT_NAME: "quizStudentName",
+  STUDENT_AGE: "quizStudentAge",
+  QUIZ_TYPE: "quizType",
+  QUIZ_DATA: "quizData",
+  CURRENT_QUIZ: "currentQuiz",
+  SCORE: "quizScore",
+  SHUFFLED_ANSWERS: "shuffledAnswers",
+  PERCENTAGE: "quizPercentage",
+  IS_COMPLETED: "quizCompleted",
+};
 
 // DOM Elements
 const welcomeScreen = document.getElementById("welcomeScreen");
@@ -58,6 +72,115 @@ const resultMessage = document.getElementById("resultMessage");
 const scoreFraction = document.getElementById("scoreFraction");
 const percentageBadge = document.getElementById("percentageBadge");
 const playAgainBtn = document.getElementById("playAgainBtn");
+
+// LocalStorage Functions
+function saveToLocalStorage() {
+  localStorage.setItem(STORAGE_KEYS.STUDENT_NAME, studentName);
+  localStorage.setItem(STORAGE_KEYS.STUDENT_AGE, studentAge);
+  localStorage.setItem(STORAGE_KEYS.QUIZ_TYPE, quizType);
+  localStorage.setItem(STORAGE_KEYS.QUIZ_DATA, JSON.stringify(currentQuizData));
+  localStorage.setItem(STORAGE_KEYS.CURRENT_QUIZ, currentQuiz);
+  localStorage.setItem(STORAGE_KEYS.SCORE, score);
+  localStorage.setItem(
+    STORAGE_KEYS.SHUFFLED_ANSWERS,
+    JSON.stringify(shuffledAnswers)
+  );
+}
+
+function saveResults(percentage) {
+  localStorage.setItem(STORAGE_KEYS.PERCENTAGE, percentage);
+  localStorage.setItem(STORAGE_KEYS.IS_COMPLETED, "true");
+}
+
+function loadFromLocalStorage() {
+  const savedName = localStorage.getItem(STORAGE_KEYS.STUDENT_NAME);
+  const savedAge = localStorage.getItem(STORAGE_KEYS.STUDENT_AGE);
+  const savedQuizType = localStorage.getItem(STORAGE_KEYS.QUIZ_TYPE);
+  const savedQuizData = localStorage.getItem(STORAGE_KEYS.QUIZ_DATA);
+  const savedCurrentQuiz = localStorage.getItem(STORAGE_KEYS.CURRENT_QUIZ);
+  const savedScore = localStorage.getItem(STORAGE_KEYS.SCORE);
+  const savedShuffledAnswers = localStorage.getItem(
+    STORAGE_KEYS.SHUFFLED_ANSWERS
+  );
+  const isCompleted = localStorage.getItem(STORAGE_KEYS.IS_COMPLETED);
+
+  if (savedName && savedAge && savedQuizType && savedQuizData) {
+    studentName = savedName;
+    studentAge = savedAge;
+    quizType = savedQuizType;
+    currentQuizData = JSON.parse(savedQuizData);
+    currentQuiz = parseInt(savedCurrentQuiz) || 0;
+    score = parseInt(savedScore) || 0;
+
+    if (savedShuffledAnswers) {
+      shuffledAnswers = JSON.parse(savedShuffledAnswers);
+    }
+
+    return {
+      hasSession: true,
+      isCompleted: isCompleted === "true",
+    };
+  }
+
+  return { hasSession: false, isCompleted: false };
+}
+
+function clearLocalStorage() {
+  Object.values(STORAGE_KEYS).forEach((key) => {
+    localStorage.removeItem(key);
+  });
+}
+
+async function restoreSession() {
+  const session = loadFromLocalStorage();
+
+  if (session.hasSession) {
+    // Ensure quiz data is loaded
+    if (!quizDataLoaded) {
+      await loadQuizData();
+    }
+
+    if (session.isCompleted) {
+      // Show results screen
+      const percentage =
+        parseInt(localStorage.getItem(STORAGE_KEYS.PERCENTAGE)) || 0;
+      welcomeScreen.classList.add("hidden");
+      resultsScreen.classList.remove("hidden");
+
+      resultTitle.innerText = `Congratulations, ${studentName}!`;
+      scoreFraction.innerText = `You answered ${score} out of ${currentQuizData.length} questions correctly`;
+      percentageBadge.innerText = `${percentage}%`;
+
+      let message = "";
+      if (percentage >= 80) {
+        message =
+          "Excellent work! You have a great understanding of the material!";
+      } else if (percentage >= 60) {
+        message = "Good job! Keep practicing to improve your skills!";
+      } else {
+        message = "Keep learning and practicing! You'll get better with time!";
+      }
+      resultMessage.innerText = message;
+
+      console.log("Session restored: Quiz completed");
+    } else {
+      // Resume quiz
+      welcomeScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+
+      const quizTypeName = quizType === "webdev" ? "Web Development" : "Python";
+      studentInfo.innerHTML = `<p><strong>${studentName}</strong> (${studentAge} years old) - ${quizTypeName} Quiz</p>`;
+
+      loadQuiz();
+
+      console.log(
+        `Session restored: Resuming at question ${currentQuiz + 1}/${
+          currentQuizData.length
+        }`
+      );
+    }
+  }
+}
 
 // Event Listeners - Welcome Screen
 nameNextBtn.addEventListener("click", () => {
@@ -101,17 +224,20 @@ ageInput.addEventListener("keypress", (e) => {
 quizTypeButtons.forEach((btn) => {
   btn.addEventListener("click", async () => {
     quizType = btn.getAttribute("data-type");
-    
+
     if (!quizDataLoaded) {
       await loadQuizData();
     }
-    
+
     if (quizType === "webdev") {
       currentQuizData = shuffleArray([...webDevQuizData]);
     } else {
       currentQuizData = shuffleArray([...pythonQuizData]);
     }
-    
+
+    // Save initial session data
+    saveToLocalStorage();
+
     startQuiz();
   });
 });
@@ -131,10 +257,10 @@ function startQuiz() {
     welcomeScreen.classList.add("hidden");
     quizScreen.classList.remove("hidden");
     setTimeout(() => quizScreen.classList.add("fade-in"), 10);
-    
+
     const quizTypeName = quizType === "webdev" ? "Web Development" : "Python";
     studentInfo.innerHTML = `<p><strong>${studentName}</strong> (${studentAge} years old) - ${quizTypeName} Quiz</p>`;
-    
+
     loadQuiz();
   }, 300);
 }
@@ -144,33 +270,49 @@ function loadQuiz() {
 
   const current = currentQuizData[currentQuiz];
 
-  questionEl.innerText = `Question ${currentQuiz + 1}/${currentQuizData.length}: ${current.question}`;
-  
-  // Create array of answers with their keys
-  const answers = [
-    { key: "a", text: current.a },
-    { key: "b", text: current.b },
-    { key: "c", text: current.c },
-    { key: "d", text: current.d }
-  ];
-  
-  // Shuffle answers
-  const shuffledAnswers = shuffleArray([...answers]);
-  
+  questionEl.innerText = `Question ${currentQuiz + 1}/${
+    currentQuizData.length
+  }: ${current.question}`;
+
+  // Check if we have saved shuffled answers for this question
+  let currentShuffledAnswers;
+
+  if (shuffledAnswers[currentQuiz]) {
+    // Use saved shuffled answers
+    currentShuffledAnswers = shuffledAnswers[currentQuiz];
+  } else {
+    // Create array of answers with their keys
+    const answers = [
+      { key: "a", text: current.a },
+      { key: "b", text: current.b },
+      { key: "c", text: current.c },
+      { key: "d", text: current.d },
+    ];
+
+    // Shuffle answers
+    currentShuffledAnswers = shuffleArray([...answers]);
+
+    // Save shuffled answers for this question
+    shuffledAnswers[currentQuiz] = currentShuffledAnswers;
+  }
+
   // Find which position has the correct answer
-  const correctAnswerPosition = shuffledAnswers.findIndex(
-    answer => answer.key === current.correct
+  const correctAnswerPosition = currentShuffledAnswers.findIndex(
+    (answer) => answer.key === current.correct
   );
-  
+
   // Map correct answer position to a, b, c, or d
   const answerKeys = ["a", "b", "c", "d"];
   correctAnswerKey = answerKeys[correctAnswerPosition];
-  
+
   // Display shuffled answers
-  a_text.innerText = shuffledAnswers[0].text;
-  b_text.innerText = shuffledAnswers[1].text;
-  c_text.innerText = shuffledAnswers[2].text;
-  d_text.innerText = shuffledAnswers[3].text;
+  a_text.innerText = currentShuffledAnswers[0].text;
+  b_text.innerText = currentShuffledAnswers[1].text;
+  c_text.innerText = currentShuffledAnswers[2].text;
+  d_text.innerText = currentShuffledAnswers[3].text;
+
+  // Save current state to localStorage
+  saveToLocalStorage();
 }
 
 function deselectAnswers() {
@@ -197,6 +339,9 @@ submitBtn.addEventListener("click", () => {
 
     currentQuiz++;
 
+    // Save progress to localStorage
+    saveToLocalStorage();
+
     if (currentQuiz < currentQuizData.length) {
       loadQuiz();
     } else {
@@ -213,27 +358,38 @@ function showResults() {
     quizScreen.classList.add("hidden");
     resultsScreen.classList.remove("hidden");
     setTimeout(() => resultsScreen.classList.add("fade-in"), 10);
-    
+
     const percentage = Math.round((score / currentQuizData.length) * 100);
-    
+
+    // Save results to localStorage
+    saveResults(percentage);
+
     resultTitle.innerText = `Congratulations, ${studentName}!`;
     scoreFraction.innerText = `You answered ${score} out of ${currentQuizData.length} questions correctly`;
     percentageBadge.innerText = `${percentage}%`;
-    
+
     let message = "";
-    
+
     if (percentage >= 80) {
-      message = "Excellent work! You have a great understanding of the material!";
+      message =
+        "Excellent work! You have a great understanding of the material!";
     } else if (percentage >= 60) {
       message = "Good job! Keep practicing to improve your skills!";
     } else {
       message = "Keep learning and practicing! You'll get better with time!";
     }
-    
+
     resultMessage.innerText = message;
   }, 300);
 }
 
 playAgainBtn.addEventListener("click", () => {
+  // Clear localStorage when starting a new quiz
+  clearLocalStorage();
   location.reload();
+});
+
+// Initialize: Restore session on page load
+window.addEventListener("DOMContentLoaded", () => {
+  restoreSession();
 });
