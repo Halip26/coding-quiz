@@ -45,8 +45,8 @@ Welcome to **Coding Quiz**, an interactive and dynamic quiz platform created by 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/halip26/quiz-time.git
-   cd quiz-time
+   git clone https://github.com/halip26/coding-quiz.git
+   cd coding-quiz
    ```
 
 2. **Open the quiz**
@@ -143,7 +143,7 @@ Edit `assets/data/quizData.json`:
 
 ## 🌟 Live Demo
 
-Visit the live demo: [Coding Quiz](https://halip26.github.io/quiz-time)
+Visit the live demo: [Coding Quiz](https://halip26.github.io/coding-quiz)
 
 ## 👨‍💻 Author
 
