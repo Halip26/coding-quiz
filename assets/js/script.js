@@ -27,6 +27,7 @@ let quizType = "";
 let currentQuizData = [];
 let currentQuiz = 0;
 let score = 0;
+let correctAnswerKey = "";
 
 // DOM Elements
 const welcomeScreen = document.getElementById("welcomeScreen");
@@ -54,6 +55,8 @@ const submitBtn = document.getElementById("submit");
 
 const resultTitle = document.getElementById("resultTitle");
 const resultMessage = document.getElementById("resultMessage");
+const scoreFraction = document.getElementById("scoreFraction");
+const percentageBadge = document.getElementById("percentageBadge");
 const playAgainBtn = document.getElementById("playAgainBtn");
 
 // Event Listeners - Welcome Screen
@@ -142,10 +145,32 @@ function loadQuiz() {
   const current = currentQuizData[currentQuiz];
 
   questionEl.innerText = `Question ${currentQuiz + 1}/${currentQuizData.length}: ${current.question}`;
-  a_text.innerText = current.a;
-  b_text.innerText = current.b;
-  c_text.innerText = current.c;
-  d_text.innerText = current.d;
+  
+  // Create array of answers with their keys
+  const answers = [
+    { key: "a", text: current.a },
+    { key: "b", text: current.b },
+    { key: "c", text: current.c },
+    { key: "d", text: current.d }
+  ];
+  
+  // Shuffle answers
+  const shuffledAnswers = shuffleArray([...answers]);
+  
+  // Find which position has the correct answer
+  const correctAnswerPosition = shuffledAnswers.findIndex(
+    answer => answer.key === current.correct
+  );
+  
+  // Map correct answer position to a, b, c, or d
+  const answerKeys = ["a", "b", "c", "d"];
+  correctAnswerKey = answerKeys[correctAnswerPosition];
+  
+  // Display shuffled answers
+  a_text.innerText = shuffledAnswers[0].text;
+  b_text.innerText = shuffledAnswers[1].text;
+  c_text.innerText = shuffledAnswers[2].text;
+  d_text.innerText = shuffledAnswers[3].text;
 }
 
 function deselectAnswers() {
@@ -166,7 +191,7 @@ submitBtn.addEventListener("click", () => {
   const answer = getSelected();
 
   if (answer) {
-    if (answer === currentQuizData[currentQuiz].correct) {
+    if (answer === correctAnswerKey) {
       score++;
     }
 
@@ -192,15 +217,17 @@ function showResults() {
     const percentage = Math.round((score / currentQuizData.length) * 100);
     
     resultTitle.innerText = `Congratulations, ${studentName}!`;
+    scoreFraction.innerText = `You answered ${score} out of ${currentQuizData.length} questions correctly`;
+    percentageBadge.innerText = `${percentage}%`;
     
-    let message = `You answered ${score} out of ${currentQuizData.length} questions correctly (${percentage}%). `;
+    let message = "";
     
     if (percentage >= 80) {
-      message += "Excellent work! You have a great understanding of the material!";
+      message = "Excellent work! You have a great understanding of the material!";
     } else if (percentage >= 60) {
-      message += "Good job! Keep practicing to improve your skills!";
+      message = "Good job! Keep practicing to improve your skills!";
     } else {
-      message += "Keep learning and practicing! You'll get better with time!";
+      message = "Keep learning and practicing! You'll get better with time!";
     }
     
     resultMessage.innerText = message;
