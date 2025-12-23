@@ -10,7 +10,7 @@
 body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #108bff 100%);
   background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  /* animation: gradientShift 15s ease infinite; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,9 @@ body {
   padding: 20px;
 }
 
-@keyframes gradientShift {
+/* animate the position, so the browser has to recalculate &
+repaint every single pixel on users' screen 60 timesper second (60fps) LOL*/
+/* @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
   }
@@ -29,7 +31,7 @@ body {
   100% {
     background-position: 0% 50%;
   }
-}
+} */
 
 .title {
   text-align: center;
@@ -87,6 +89,10 @@ ul {
 ul li {
   font-size: 1.2rem;
   margin: 1rem 0;
+}
+
+ul li:last-child {
+  margin-bottom: 50px;
 }
 
 ul li input,
@@ -457,6 +463,10 @@ input::-webkit-inner-spin-button {
   .form-step input {
     font-size: 1rem;
     padding: 0.8rem 1rem;
+  }
+
+  ul li:last-child {
+    margin-bottom: 25px;
   }
 
   .quiz-header {
